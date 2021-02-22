@@ -1,5 +1,6 @@
 package ifrn.pi.eventos.controllers;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import ifrn.pi.eventos.models.Evento;
 import ifrn.pi.eventos.repositories.EventoRepository;
 
@@ -21,6 +24,7 @@ public class EventosController {
 	@GetMapping("/form")
 	public String form() {
 		return "eventos/formEvento";
+
 	};
 
 	@PostMapping
@@ -59,3 +63,23 @@ public class EventosController {
 	} 
 	
 }
+
+};    
+    @PostMapping
+    public String envioForm(Evento evento) {
+    	System.out.println(evento);
+    	er.save(evento);
+    	
+    	return "evento/formEnviado";
+    	};
+
+      @GetMapping
+      public ModelAndView listar() {
+	  
+	  List<Evento> eventos = er.findAll();
+	  ModelAndView mv = new ModelAndView ("eventos/lista");
+	  mv.addObject("eventos", eventos);
+      return mv;
+      };    
+};
+
