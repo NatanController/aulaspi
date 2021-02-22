@@ -2,7 +2,6 @@ package ifrn.pi.eventos.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import ifrn.pi.eventos.models.Convidado;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import ifrn.pi.eventos.models.Evento;
 import ifrn.pi.eventos.repositories.ConvidadoRepository;
 import ifrn.pi.eventos.repositories.EventoRepository;
@@ -20,15 +22,18 @@ import ifrn.pi.eventos.repositories.EventoRepository;
 @RequestMapping("/eventos")
 public class EventosController {
 
+
 	@Autowired
 	private EventoRepository er; 
 	
+
 	@Autowired
 	private ConvidadoRepository cr;
 
 	@GetMapping("/form")
 	public String form() {
 		return "eventos/formEvento";
+
 	};
 
 	@PostMapping
@@ -43,7 +48,7 @@ public class EventosController {
 	public ModelAndView listar() {
 
 		java.util.List<Evento> eventos = er.findAll();
-		ModelAndView mv = new ModelAndView("eventos/lista");
+		ModelAndView mv = new ModelAndView("/eventos/lista");
 		mv.addObject("eventos", eventos);
 		return mv;
 
@@ -62,6 +67,7 @@ public class EventosController {
 		md.setViewName("eventos/detalhes");
 		Evento evento = opt.get();
 		md.addObject("evento", evento);
+  }
 		
 		
 		List<Convidado> convidados = cr.findByEvento(evento);
@@ -89,6 +95,25 @@ public class EventosController {
 		cr.save(convidado);
 		
 		return "redirect:/eventos/{idEvento}";
+    return md;
 	}	
-	
-}
+  
+    @PostMapping
+    public String envioForm(Evento evento) {
+    	System.out.println(evento);
+    	er.save(evento);
+    	
+    	return "evento/formEnviado";
+    	};
+
+      @GetMapping
+      public ModelAndView listar() {
+	  
+	  List<Evento> eventos = er.findAll();
+	  ModelAndView mv = new ModelAndView ("eventos/lista");
+	  mv.addObject("eventos", eventos);
+      return mv;
+      };    
+};
+
+
