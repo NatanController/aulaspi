@@ -45,13 +45,15 @@
 				<div class="card ">
 					<div class="card-content ">
 						<span class="card-title">Adicionar Convidado</span>
-						<form action="" method="post">
+						<form action="" method="post" th:object="${Convidado}">
 							<div>
-								<label>Nome: </label> <input type="text" name="nome">
+								<label>Nome: </label> <input type="text" th:value="*{nome}">
+								<p th:errors="*{nome}">
 							</div>
 
 							<div>
-								<label>RG: </label> <input type="text" name="rg">
+								<label>RG: </label> <input type="text" th:value="*{rg}">
+								<p th:errors="*{rg}">
 							</div>
 							<div>
 

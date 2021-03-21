@@ -81,7 +81,7 @@ public class EventosController {
 		
 		if (result.hasErrors()) {
 			
-			return "redirect:/eventos";
+			return "redirect:/eventos/form";
 		}
 
 		System.out.println("Id do evento" + idEvento);
