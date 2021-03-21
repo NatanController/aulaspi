@@ -14,16 +14,19 @@
 	<div th:replace="~{menu :: menu}"></div>
 	<div class="container">
 
+
+    <p th:if="${mensagem}" th:text="${mensagem}"> </p>
 		<h1>Lista de eventos</h1>
 
 		<table class="highlight">
-			<thead>					<th>Id</th>
+			<thead>					
+			
+			        <th>Id</th>
 					<th>Nome</th>
 					<th>Local</th>
 					<th>Data</th>
 					<th>Horário</th>
-					<th></th>
-				</tr>
+				
 			</thead>
 			<tbody>
 				<tr th:each="e : ${eventos}">
